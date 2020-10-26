@@ -2,7 +2,14 @@
 
 namespace Neoncitylights\Base64String;
 
+/**
+ * @license MIT
+ */
 class MimeType {
+	private const TOKEN_TYPE_SEPARATOR = '/';
+	private const TOKEN_DELIMETER = ';';
+	private const TOKEN_EQUAL = '=';
+
 	/** @var string */
 	private $type;
 
@@ -28,14 +35,14 @@ class MimeType {
 	 * @return self
 	 */
 	public static function newFromString( string $input ) : self {
-		$parts = explode( ';', $input );
-		list( $type, $subType ) = explode( '/', $parts[0] );
+		$parts = explode( self::TOKEN_DELIMETER, $input );
+		list( $type, $subType ) = explode( self::TOKEN_TYPE_SEPARATOR, $parts[0] );
 
 		unset( $parts[0] );
 
 		$parameters = [];
 		foreach ( $parts as $part ) {
-			$paramParts = explode( '=', $part );
+			$paramParts = explode( self::TOKEN_EQUAL, $part );
 			$parameters[$paramParts[0]] = $paramParts[1];
 		}
 
