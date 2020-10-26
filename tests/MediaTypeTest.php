@@ -2,19 +2,19 @@
 
 namespace Neoncitylights\Base64String\Tests;
 
-use Neoncitylights\Base64String\MimeType;
+use Neoncitylights\Base64String\MediaType;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass Neoncitylights\Base64String\MimeType
+ * @coversDefaultClass Neoncitylights\Base64String\MediaType
  */
-class MimeTypeTest extends TestCase {
+class MediaTypeTest extends TestCase {
 	/**
 	 * @covers ::newFromString
 	 * @dataProvider provideValidObjects
 	 */
-	public function testIsMimeTypeObject( $mimeTypeObject ) {
-		$this->assertInstanceOf( MimeType::class, MimeType::newFromString( $mimeTypeObject ) );
+	public function testIsMediaTypeObject( $mediaTypeObject ) {
+		$this->assertInstanceOf( MediaType::class, MediaType::newFromString( $mediaTypeObject ) );
 	}
 
 	/**
@@ -73,15 +73,15 @@ class MimeTypeTest extends TestCase {
 		return [
 			[
 				'text',
-				MimeType::newFromString( "text/plain" )->getType(),
+				MediaType::newFromString( "text/plain" )->getType(),
 			],
 			[
 				'application',
-				MimeType::newFromString( "application/xhtml+xml" )->getType(),
+				MediaType::newFromString( "application/xhtml+xml" )->getType(),
 			],
 			[
 				'application',
-				MimeType::newFromString( "application/vnd.openxmlformats-officedocument.presentationml.presentation" )->getType(),
+				MediaType::newFromString( "application/vnd.openxmlformats-officedocument.presentationml.presentation" )->getType(),
 			],
 		];
 	}
@@ -90,15 +90,15 @@ class MimeTypeTest extends TestCase {
 		return [
 			[
 				'plain',
-				MimeType::newFromString( "text/plain" )->getSubType(),
+				MediaType::newFromString( "text/plain" )->getSubType(),
 			],
 			[
 				'xhtml+xml',
-				MimeType::newFromString( "application/xhtml+xml" )->getSubType(),
+				MediaType::newFromString( "application/xhtml+xml" )->getSubType(),
 			],
 			[
 				'vnd.openxmlformats-officedocument.presentationml.presentation',
-				MimeType::newFromString( "application/vnd.openxmlformats-officedocument.presentationml.presentation" )->getSubType(),
+				MediaType::newFromString( "application/vnd.openxmlformats-officedocument.presentationml.presentation" )->getSubType(),
 			],
 		];
 	}
@@ -109,11 +109,11 @@ class MimeTypeTest extends TestCase {
 				[
 					'charset' => 'UTF-8'
 				],
-				MimeType::newFromString( "text/plain;charset=UTF-8" )->getParameters(),
+				MediaType::newFromString( "text/plain;charset=UTF-8" )->getParameters(),
 			],
 			[
 				[],
-				MimeType::newFromString( "text/plain" )->getParameters(),
+				MediaType::newFromString( "text/plain" )->getParameters(),
 			],
 		];
 	}
@@ -122,11 +122,11 @@ class MimeTypeTest extends TestCase {
 		return [
 			[ 
 				'UTF-8',
-				MimeType::newFromString( "text/plain;charset=UTF-8" )->getParameterValue( 'charset' ),
+				MediaType::newFromString( "text/plain;charset=UTF-8" )->getParameterValue( 'charset' ),
 			],
 			[
 				null,
-				MimeType::newFromString( "text/plain" )->getParameterValue( 'charset' )
+				MediaType::newFromString( "text/plain" )->getParameterValue( 'charset' )
 			]
 		];
 	}

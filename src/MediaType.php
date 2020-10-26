@@ -5,7 +5,7 @@ namespace Neoncitylights\Base64String;
 /**
  * @license MIT
  */
-class MimeType {
+class MediaType {
 	private const TOKEN_TYPE_SEPARATOR = '/';
 	private const TOKEN_DELIMETER = ';';
 	private const TOKEN_EQUAL = '=';
