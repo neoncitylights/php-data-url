@@ -59,18 +59,6 @@ class Base64StringTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::getDecodedValue
-	 * @dataProvider providePlainTextExamples
-	 * @dataProvider provideHtmlExamples
-	 */
-	public function testDoesDecodedValueMatch( $dataUrl, $expectedDecodedValue ) {
-		$base64String = Base64String::newFromDataUrl( $dataUrl );
-		$this->assertTrue(
-			$base64String->doesDecodedValueMatch( $expectedDecodedValue )
-		);
-	}
-
 	public function provideInvalidBase64Values() {
 		return [
 			[ '' ],
@@ -86,7 +74,7 @@ class Base64StringTest extends TestCase {
 			[
 				"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
 				"image/png"
-			]
+			],
 		];
 	}
 
@@ -103,7 +91,7 @@ class Base64StringTest extends TestCase {
 			[
 				"data:text/plain;base64,VGhpcyBQYW5ncmFtIGNvbnRhaW5zIGZvdXIgYSdzLCBvbmUgYiwgdHdvIGMncywgb25lIGQsIHRoaXJ0eSBlJ3MsIHNpeCBmJ3MsIGZpdmUgZydzLCBzZXZlbiBoJ3MsIGVsZXZlbiBpJ3MsIG9uZSBqLCBvbmUgaywgdHdvIGwncywgdHdvIG0ncywgZWlnaHRlZW4gbidzLCBmaWZ0ZWVuIG8ncywgdHdvIHAncywgb25lIHEsIGZpdmUgcidzLCB0d2VudHktc2V2ZW4gcydzLCBlaWdodGVlbiB0J3MsIHR3byB1J3MsIHNldmVuIHYncywgZWlnaHQgdydzLCB0d28geCdzLCB0aHJlZSB5J3MsICYgb25lIHou",
 				"This Pangram contains four a's, one b, two c's, one d, thirty e's, six f's, five g's, seven h's, eleven i's, one j, one k, two l's, two m's, eighteen n's, fifteen o's, two p's, one q, five r's, twenty-seven s's, eighteen t's, two u's, seven v's, eight w's, two x's, three y's, & one z."
-			]
+			],
 		];
 	}
 
@@ -112,6 +100,14 @@ class Base64StringTest extends TestCase {
 			[
 				"data:text/html;base64,PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg==",
 				"<h1>Hello, World!</h1>"
+			],
+			[
+				"data:text/html;base64,PHA+VGhpcyBpcyBhIHBhcmFncmFwaCBlbGVtZW50LjwvcD4=",
+				"<p>This is a paragraph element.</p>"
+			],
+			[
+				"data:text/html;base64,PHA+ClRoaXMgaXMgYSBwYXJhZ3JhcGggZWxlbWVudC4KPC9wPg==",
+				"<p>\nThis is a paragraph element.\n</p>"
 			]
 		];
 	}
