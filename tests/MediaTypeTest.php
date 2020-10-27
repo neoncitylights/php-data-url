@@ -40,6 +40,17 @@ class MediaTypeTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::getEssence
+	 * @dataProvider provideEssences
+	 */
+	public function testGetEssence( $expectedEssence, $actualEssence ) {
+		$this->assertEquals(
+			$expectedEssence,
+			$actualEssence
+		);
+	}
+
+	/**
 	 * @covers ::getParameters
 	 * @dataProvider provideParameters
 	 */
@@ -99,6 +110,23 @@ class MediaTypeTest extends TestCase {
 			[
 				'vnd.openxmlformats-officedocument.presentationml.presentation',
 				MediaType::newFromString( "application/vnd.openxmlformats-officedocument.presentationml.presentation" )->getSubType(),
+			],
+		];
+	}
+
+	public function provideEssences() {
+		return [
+			[
+				'text/plain',
+				MediaType::newFromString( "text/plain" )->getEssence(),
+			],
+			[
+				'application/xhtml+xml',
+				MediaType::newFromString( "application/xhtml+xml" )->getEssence(),
+			],
+			[
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+				MediaType::newFromString( "application/vnd.openxmlformats-officedocument.presentationml.presentation" )->getEssence(),
 			],
 		];
 	}

@@ -50,6 +50,7 @@ class MediaType {
 	}
 
 	/**
+	 * @see https://mimesniff.spec.whatwg.org/#type
 	 * @return string
 	 */
 	public function getType() : string {
@@ -57,6 +58,7 @@ class MediaType {
 	}
 
 	/**
+	 * @see https://mimesniff.spec.whatwg.org/#subtype
 	 * @return string
 	 */
 	public function getSubType() : string {
@@ -64,6 +66,15 @@ class MediaType {
 	}
 
 	/**
+	 * @see https://mimesniff.spec.whatwg.org/#mime-type-essence
+	 * @return string
+	 */
+	public function getEssence() : string {
+		return "{$this->type}/{$this->subType}";
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#parameters
 	 * @return array
 	 */
 	public function getParameters() : array {
