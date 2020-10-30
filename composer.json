@@ -1,16 +1,24 @@
 {
-	"name": "neoncitylights/base64-string",
+	"name": "neoncitylights/data-url",
 	"authors": [
 		{
 			"name": "Samantha Nguyen"
 		}
 	],
 	"license": "MIT",
-	"description": "Allows working with base 64 strings as entity objects in PHP",
+	"description": "Allows working with data URLs as entity objects in PHP",
+	"keywords": [
+		"data url",
+		"data uri",
+		"rfc 2397"
+	],
 	"autoload": {
 		"psr-4": {
-			"Neoncitylights\\Base64String\\": "src/"
+			"Neoncitylights\\DataUrl\\": "src/"
 		}
+	},
+	"require": {
+		"neoncitylights/media-type": "^1.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "32.0.0",
