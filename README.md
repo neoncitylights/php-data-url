@@ -1,7 +1,7 @@
 # DataUrl
 A small PHP library for dealing with data URLs, which contain a media type and an encoded base64 string.
 
-This library almost (but does not fully) conforms to RFC 2397. It currently does not yet allow `data:,`, which is a data URL with no defined media-type, and zero-length data.
+This library fully conforms to RFC 2397.
 
 ## Install
 ```

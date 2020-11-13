@@ -5,20 +5,12 @@ namespace Neoncitylights\DataUrl;
 use Neoncitylights\MediaType\MediaType;
 use function base64_decode;
 use function sprintf;
-use function strlen;
-use function strrchr;
-use function strrpos;
-use function substr;
 
 /**
  * @see https://tools.ietf.org/html/rfc2397
  * @license MIT
  */
-class DataUrl {
-	private const TOKEN_COLON = ';';
-	private const TOKEN_DATA_SCHEME = 'data:';
-	private const TOKEN_BASE64_EXT = ';base64,';
-
+class DataUrl implements DataUrlToken {
 	/** @var MediaType */
 	private $mediaType;
 
@@ -35,22 +27,6 @@ class DataUrl {
 	public function __construct( MediaType $mediaType, string $data ) {
 		$this->mediaType = $mediaType;
 		$this->data = $data;
-	}
-
-	/**
-	 * Creates a Base64String object from a data URL.
-	 *
-	 * @param string $dataUrl
-	 * @return self|null
-	 */
-	public static function newFromString( string $dataUrl ) : ?self {
-		$stringFromLastColonToken = strrchr( $dataUrl, self::TOKEN_COLON );
-		$stringBeforeBase64 = substr( $dataUrl, 0, strrpos( $dataUrl, self::TOKEN_COLON ) );
-
-		$mediaType = substr( $stringBeforeBase64, strlen( self::TOKEN_DATA_SCHEME ) );
-		$data = substr( $stringFromLastColonToken, strlen( self::TOKEN_BASE64_EXT ) );
-
-		return new self( MediaType::newFromString( $mediaType ), $data );
 	}
 
 	/**
@@ -92,10 +68,11 @@ class DataUrl {
 	 */
 	public function __toString() : string {
 		return sprintf(
-			'%s%s%s%s',
+			'%s%s%s%s%s',
 			self::TOKEN_DATA_SCHEME,
 			(string)$this->mediaType,
 			self::TOKEN_BASE64_EXT,
+			self::TOKEN_COMMA,
 			$this->data
 		);
 	}

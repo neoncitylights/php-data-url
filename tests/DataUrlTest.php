@@ -3,80 +3,80 @@
 namespace Neoncitylights\DataUrl\Tests;
 
 use Neoncitylights\DataUrl\DataUrl;
+use Neoncitylights\DataUrl\DataUrlParser;
 use Neoncitylights\MediaType\MediaType;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Neoncitylights\DataUrl\DataUrl
+ * @coversDefaultClass \Neoncitylights\DataUrl\DataUrl
+ * @uses \Neoncitylights\DataUrl\DataUrlParser
  * @uses \Neoncitylights\MediaType\MediaType
  */
 class DataUrlTest extends TestCase {
-	/**
-	 * @covers ::newFromDataUrl
-	 * @covers ::newFromString
-	 * @dataProvider provideValidDataUrls
-	 */
-	public function testNewFromDataUrlSuccessful( $validDataUrl ) {
-		$this->assertInstanceOf( DataUrl::class, DataUrl::newFromString( $validDataUrl ) );
+	/** @var DataUrlParser|null */
+	private static $dataUrlParser;
+
+	public static function setUpBeforeClass(): void {
+		self::$dataUrlParser = new DataUrlParser();
+	}
+
+	public static function tearDownAfterClass(): void {
+		self::$dataUrlParser = null;
 	}
 
 	/**
 	 * @covers ::getMediaType
-	 * @covers ::newFromString
 	 * @dataProvider provideValidDataUrls
 	 */
 	public function testGetMediaType( $validDataUrl ) {
 		$this->assertInstanceOf(
 			MediaType::class,
-			DataUrl::newFromString( $validDataUrl )->getMediaType()
+			self::$dataUrlParser->parse( $validDataUrl )->getMediaType()
 		);
 	}
 
 	/**
 	 * @covers ::getMediaType
-	 * @covers ::newFromString
 	 * @dataProvider provideMediaTypeEssences
 	 */
 	public function testGetMediaTypeEssence( $expectedMediaTypeEssence, $validDataUrl ) {
 		$this->assertEquals(
 			$expectedMediaTypeEssence,
-			DataUrl::newFromString( $validDataUrl )->getMediaType()->getEssence()
+			self::$dataUrlParser->parse( $validDataUrl )->getMediaType()->getEssence()
 		);
 	}
 
 	/**
 	 * @covers ::getData
-	 * @covers ::newFromString
 	 * @dataProvider provideData
 	 */
 	public function testGetData( $expectedData, $validDataUrl ) {
 		$this->assertEquals(
 			$expectedData,
-			DataUrl::newFromString( $validDataUrl )->getData()
+			self::$dataUrlParser->parse( $validDataUrl )->getData()
 		);
 	}
 
 	/**
 	 * @covers ::getDecodedValue
-	 * @covers ::newFromString
 	 * @dataProvider provideDecodedValues
 	 */
 	public function testGetDecodedValue( $expectedDecodedValue, $validDataUrl ) {
 		$this->assertEquals(
 			$expectedDecodedValue,
-			DataUrl::newFromString( $validDataUrl )->getDecodedValue()
+			self::$dataUrlParser->parse( $validDataUrl )->getDecodedValue()
 		);
 	}
 
 	/**
 	 * @covers ::__toString
-	 * @covers ::newFromString
 	 * @dataProvider provideStrings
+	 * @uses \Neoncitylights\DataUrl\DataUrlParser
 	 */
 	public function testToString( $expectedDataUrl, $actualValidDataUrl ) {
 		$this->assertEquals(
 			$expectedDataUrl,
-			(string)DataUrl::newFromString( $actualValidDataUrl )
+			(string)self::$dataUrlParser->parse( $actualValidDataUrl )
 		);
 	}
 
@@ -90,7 +90,6 @@ class DataUrlTest extends TestCase {
 		yield 'text/plain example #2: pangram #2: data url' => [
 			"data:text/plain;base64,VGhpcyBQYW5ncmFtIGNvbnRhaW5zIGZvdXIgYSdzLCBvbmUgYiwgdHdvIGMncywgb25lIGQsIHRoaXJ0eSBlJ3MsIHNpeCBmJ3MsIGZpdmUgZydzLCBzZXZlbiBoJ3MsIGVsZXZlbiBpJ3MsIG9uZSBqLCBvbmUgaywgdHdvIGwncywgdHdvIG0ncywgZWlnaHRlZW4gbidzLCBmaWZ0ZWVuIG8ncywgdHdvIHAncywgb25lIHEsIGZpdmUgcidzLCB0d2VudHktc2V2ZW4gcydzLCBlaWdodGVlbiB0J3MsIHR3byB1J3MsIHNldmVuIHYncywgZWlnaHQgdydzLCB0d28geCdzLCB0aHJlZSB5J3MsICYgb25lIHou",
 		];
-
 		yield 'text/html example #1: hello world: data url' => [
 			"data:text/html;base64,PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg==",
 		];
@@ -126,7 +125,6 @@ class DataUrlTest extends TestCase {
 			"VGhpcyBQYW5ncmFtIGNvbnRhaW5zIGZvdXIgYSdzLCBvbmUgYiwgdHdvIGMncywgb25lIGQsIHRoaXJ0eSBlJ3MsIHNpeCBmJ3MsIGZpdmUgZydzLCBzZXZlbiBoJ3MsIGVsZXZlbiBpJ3MsIG9uZSBqLCBvbmUgaywgdHdvIGwncywgdHdvIG0ncywgZWlnaHRlZW4gbidzLCBmaWZ0ZWVuIG8ncywgdHdvIHAncywgb25lIHEsIGZpdmUgcidzLCB0d2VudHktc2V2ZW4gcydzLCBlaWdodGVlbiB0J3MsIHR3byB1J3MsIHNldmVuIHYncywgZWlnaHQgdydzLCB0d28geCdzLCB0aHJlZSB5J3MsICYgb25lIHou",
 			"data:text/plain;base64,VGhpcyBQYW5ncmFtIGNvbnRhaW5zIGZvdXIgYSdzLCBvbmUgYiwgdHdvIGMncywgb25lIGQsIHRoaXJ0eSBlJ3MsIHNpeCBmJ3MsIGZpdmUgZydzLCBzZXZlbiBoJ3MsIGVsZXZlbiBpJ3MsIG9uZSBqLCBvbmUgaywgdHdvIGwncywgdHdvIG0ncywgZWlnaHRlZW4gbidzLCBmaWZ0ZWVuIG8ncywgdHdvIHAncywgb25lIHEsIGZpdmUgcidzLCB0d2VudHktc2V2ZW4gcydzLCBlaWdodGVlbiB0J3MsIHR3byB1J3MsIHNldmVuIHYncywgZWlnaHQgdydzLCB0d28geCdzLCB0aHJlZSB5J3MsICYgb25lIHou",
 		];
-
 		yield 'text/html example #1: hello world: data' => [
 			"PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg==",
 			"data:text/html;base64,PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg=="
@@ -154,7 +152,6 @@ class DataUrlTest extends TestCase {
 			"This Pangram contains four a's, one b, two c's, one d, thirty e's, six f's, five g's, seven h's, eleven i's, one j, one k, two l's, two m's, eighteen n's, fifteen o's, two p's, one q, five r's, twenty-seven s's, eighteen t's, two u's, seven v's, eight w's, two x's, three y's, & one z.",
 			"data:text/plain;base64,VGhpcyBQYW5ncmFtIGNvbnRhaW5zIGZvdXIgYSdzLCBvbmUgYiwgdHdvIGMncywgb25lIGQsIHRoaXJ0eSBlJ3MsIHNpeCBmJ3MsIGZpdmUgZydzLCBzZXZlbiBoJ3MsIGVsZXZlbiBpJ3MsIG9uZSBqLCBvbmUgaywgdHdvIGwncywgdHdvIG0ncywgZWlnaHRlZW4gbidzLCBmaWZ0ZWVuIG8ncywgdHdvIHAncywgb25lIHEsIGZpdmUgcidzLCB0d2VudHktc2V2ZW4gcydzLCBlaWdodGVlbiB0J3MsIHR3byB1J3MsIHNldmVuIHYncywgZWlnaHQgdydzLCB0d28geCdzLCB0aHJlZSB5J3MsICYgb25lIHou",
 		];
-
 		yield 'text/html example #1: hello world: decoded value' => [
 			"<h1>Hello, World!</h1>",
 			"data:text/html;base64,PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg=="
@@ -182,7 +179,6 @@ class DataUrlTest extends TestCase {
 			"data:text/plain;base64,VGhpcyBQYW5ncmFtIGNvbnRhaW5zIGZvdXIgYSdzLCBvbmUgYiwgdHdvIGMncywgb25lIGQsIHRoaXJ0eSBlJ3MsIHNpeCBmJ3MsIGZpdmUgZydzLCBzZXZlbiBoJ3MsIGVsZXZlbiBpJ3MsIG9uZSBqLCBvbmUgaywgdHdvIGwncywgdHdvIG0ncywgZWlnaHRlZW4gbidzLCBmaWZ0ZWVuIG8ncywgdHdvIHAncywgb25lIHEsIGZpdmUgcidzLCB0d2VudHktc2V2ZW4gcydzLCBlaWdodGVlbiB0J3MsIHR3byB1J3MsIHNldmVuIHYncywgZWlnaHQgdydzLCB0d28geCdzLCB0aHJlZSB5J3MsICYgb25lIHou",
 			"data:text/plain;base64,VGhpcyBQYW5ncmFtIGNvbnRhaW5zIGZvdXIgYSdzLCBvbmUgYiwgdHdvIGMncywgb25lIGQsIHRoaXJ0eSBlJ3MsIHNpeCBmJ3MsIGZpdmUgZydzLCBzZXZlbiBoJ3MsIGVsZXZlbiBpJ3MsIG9uZSBqLCBvbmUgaywgdHdvIGwncywgdHdvIG0ncywgZWlnaHRlZW4gbidzLCBmaWZ0ZWVuIG8ncywgdHdvIHAncywgb25lIHEsIGZpdmUgcidzLCB0d2VudHktc2V2ZW4gcydzLCBlaWdodGVlbiB0J3MsIHR3byB1J3MsIHNldmVuIHYncywgZWlnaHQgdydzLCB0d28geCdzLCB0aHJlZSB5J3MsICYgb25lIHou",
 		];
-
 		yield 'text/html example #1: hello world' => [
 			"data:text/html;base64,PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg==",
 			"data:text/html;base64,PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg==",
