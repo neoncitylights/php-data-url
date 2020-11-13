@@ -12,9 +12,10 @@ composer require neoncitylights/data-url
 ```php
 <?php
 
-use Neoncitylights\DataUrl\DataUrl;
+use Neoncitylights\DataUrl\DataUrlParser;
 
-$dataUrl = DataUrl::newFromString( 'data:text/plain;base64,VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg==' );
+$dataUrlParser = new DataUrlParser();
+$dataUrl = $dataUrlParser->parse( 'data:text/plain;base64,VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg==' );
 
 print( $dataUrl->getMediaType()->getEssence() );
 // 'text/plain'
