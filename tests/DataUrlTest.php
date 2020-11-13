@@ -47,6 +47,17 @@ class DataUrlTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::getMediaType
+	 * @dataProvider provideMediaTypeParameters
+	 */
+	public function testGetMediaTypeParameterValue( $expectedParameter, $expectedParameterValue, $validDataUrl ) {
+		$this->assertEquals(
+			$expectedParameterValue,
+			self::$dataUrlParser->parse( $validDataUrl )->getMediaType()->getParameterValue( $expectedParameter )
+		);
+	}
+
+	/**
 	 * @covers ::getData
 	 * @dataProvider provideData
 	 */
@@ -109,6 +120,14 @@ class DataUrlTest extends TestCase {
 		yield [
 			'text/html',
 			'data:text/html;base64,PGgxPkhlbGxvLCBXb3JsZCE8L2gxPg==',
+		];
+	}
+
+	public function provideMediaTypeParameters() {
+		yield [
+			'charset',
+			'UTF-8',
+			'data:text/plain;charset=UTF-8;base64,VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg=='
 		];
 	}
 
