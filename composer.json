@@ -12,6 +12,12 @@
 		"data uri",
 		"rfc 2397"
 	],
+	"funding": [
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/neoncitylights"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"Neoncitylights\\DataUrl\\": "src/"
