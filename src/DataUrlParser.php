@@ -26,7 +26,7 @@ class DataUrlParser implements DataUrlToken {
 	 * @return DataUrl
 	 * @throws InvalidDataUrlSyntaxException
 	 */
-	public function parse( string $dataUrl ) : DataUrl {
+	public function parse( string $dataUrl ): DataUrl {
 		$trimmedDataUrl = trim( $dataUrl );
 
 		if ( empty( $trimmedDataUrl ) ) {
@@ -65,7 +65,7 @@ class DataUrlParser implements DataUrlToken {
 	 * @param string $content
 	 * @return MediaType
 	 */
-	private function parseMediaTypeAndBase64( string $content ) : MediaType {
+	private function parseMediaTypeAndBase64( string $content ): MediaType {
 		$base64ExtIndex = strrpos( $content, self::TOKEN_BASE64_EXT );
 		if ( is_int( $base64ExtIndex ) ) {
 			$mediaTypeString = substr( $content, 0, $base64ExtIndex );
@@ -79,7 +79,7 @@ class DataUrlParser implements DataUrlToken {
 	 * @param string $mediaTypeString
 	 * @return MediaType
 	 */
-	private function getMediaType( string $mediaTypeString ) : MediaType {
+	private function getMediaType( string $mediaTypeString ): MediaType {
 		if ( empty( $mediaTypeString ) ) {
 			return new MediaType( 'text', 'plain', [ 'charset' => 'US-ASCII', ] );
 		}

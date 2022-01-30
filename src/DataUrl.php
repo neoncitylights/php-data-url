@@ -34,7 +34,7 @@ class DataUrl implements DataUrlToken {
 	 *
 	 * @return MediaType
 	 */
-	public function getMediaType() : MediaType {
+	public function getMediaType(): MediaType {
 		return $this->mediaType;
 	}
 
@@ -43,7 +43,7 @@ class DataUrl implements DataUrlToken {
 	 *
 	 * @return string
 	 */
-	public function getData() : string {
+	public function getData(): string {
 		return $this->data;
 	}
 
@@ -52,7 +52,7 @@ class DataUrl implements DataUrlToken {
 	 *
 	 * @return string
 	 */
-	public function getDecodedValue() : string {
+	public function getDecodedValue(): string {
 		if ( $this->decodedValue !== null ) {
 			return $this->decodedValue;
 		}
@@ -66,7 +66,7 @@ class DataUrl implements DataUrlToken {
 	 *
 	 * @return string
 	 */
-	public function __toString() : string {
+	public function __toString(): string {
 		return sprintf(
 			'%s%s%s%s%s',
 			self::TOKEN_DATA_SCHEME,
