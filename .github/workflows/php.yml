@@ -26,7 +26,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
     - name: Install dependencies
-      uses: php-actions/composer@v5
+      uses: php-actions/composer@v6
 
     - name: Run test suite
       run: composer test
