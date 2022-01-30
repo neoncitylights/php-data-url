@@ -1,9 +1,33 @@
 <?xml version="1.0"?>
 <ruleset>
-	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki"/>
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
+	<!-- don't need to document typed return values -->
+	<rule ref="MediaWiki.Commenting.FunctionComment.MissingReturn">
+		<severity>0</severity>
+	</rule>
+	<rule ref="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic">
+		<severity>0</severity>
+	</rule>
+	<!-- don't need to document private members -->
+	<rule ref="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate">
+		<severity>0</severity>
+	</rule>
+	<rule ref="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate">
+		<severity>0</severity>
+	</rule>
+
+	<rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<!-- inherited line limit from MediaWiki is 100; make it at least 120 -->
+			<property name="lineLimit" value="120" />
+		</properties>
+	</rule>
+
 	<file>.</file>
 	<exclude-pattern>/tests/*</exclude-pattern>
-	<arg name="bootstrap" value="./vendor/mediawiki/mediawiki-codesniffer/utils/bootstrap-ci.php"/>
-	<arg name="extensions" value="php,php5,inc"/>
-	<arg name="encoding" value="UTF-8"/>
+	<exclude-pattern>.history</exclude-pattern>
+	<arg name="bootstrap" value="./vendor/mediawiki/mediawiki-codesniffer/utils/bootstrap-ci.php" />
+	<arg name="extensions" value="php" />
+	<arg name="encoding" value="UTF-8" />
 </ruleset>

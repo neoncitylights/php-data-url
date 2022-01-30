@@ -38,7 +38,8 @@
 			"parallel-lint . --exclude vendor --exclude node_modules",
 			"./vendor/bin/phpunit tests",
 			"minus-x check .",
-			"phpcs -p -s"
+			"phpcs -p -s",
+			"psalm"
 		],
 		"fix": [
 			"minus-x fix .",

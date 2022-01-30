@@ -1,10 +1,17 @@
 name: PHP Composer
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
+    paths:
+      - 'src/**/*.php'
+      - '!vendor'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'src/**/*.php'
+      - '!vendor'
 
 jobs:
   build:
@@ -14,8 +21,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        tools: composer:v2, phpdoc
+
     - name: Validate composer.json and composer.lock
-      run: composer validate
+      run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
@@ -25,8 +38,18 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+
     - name: Install dependencies
       uses: php-actions/composer@v6
 
     - name: Run test suite
       run: composer test
+
+    - name: Build documentation
+      run: phpdoc
+
+    - name: Deploy documentation
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
