@@ -1,2 +1,18 @@
-/vendor
-composer.lock
+# Composer
+composer.phar
+vendor/
+
+# NPM
+node_modules/
+
+# Visual Studio Code extensions
+# Local History (xyz.local-history): https://marketplace.visualstudio.com/items?itemName=xyz.local-history
+.history
+
+# user-configured files
+# PHPUnit
+.phpunit.xml
+
+# phpDocumentor
+.phpdoc
+phpdoc.xml
