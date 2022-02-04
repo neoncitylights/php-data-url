@@ -23,6 +23,11 @@
 			"Neoncitylights\\DataUrl\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Neoncitylights\\DataUrl\\Tests\\": "tests/"
+		}
+	},
 	"require": {
 		"neoncitylights/media-type": "^1.0"
 	},
@@ -37,13 +42,14 @@
 	"scripts": {
 		"lint": "parallel-lint . --exclude vendor --exclude node_modules",
 		"phpcs": "phpcs -p -s",
+		"test:phpunit-clover": "phpunit tests --coverage-clover coverage.xml",
 		"test:phpunit-xml": "phpunit tests --coverage-xml coverage",
 		"test:phpunit-html": "phpunit tests --coverage-html coverage",
 		"test": [
 			"@lint",
 			"@phpcs",
 			"covers-validator",
-			"@test:phpunit-xml",
+			"@test:phpunit-clover",
 			"minus-x check ."
 		],
 		"fix": [

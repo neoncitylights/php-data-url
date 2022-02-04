@@ -1,17 +1,10 @@
 name: PHP Composer
 
 on:
-  workflow_dispatch:
   push:
     branches: [ main ]
-    paths:
-      - 'src/**/*.php'
-      - '!vendor'
   pull_request:
     branches: [ main ]
-    paths:
-      - 'src/**/*.php'
-      - '!vendor'
 
 jobs:
   build:
@@ -25,7 +18,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.1'
-        tools: composer:v2, phpdoc
+        coverage: composer:v2, phpdoc, xdebug
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -44,6 +37,11 @@ jobs:
 
     - name: Run test suite
       run: composer test
+
+    - name: Upload code coverage to Codecov
+      uses: codecov/codecov-action@v2
+        files: ./coverage.xml
+        flags: unittests
 
     - name: Build documentation
       run: phpdoc
