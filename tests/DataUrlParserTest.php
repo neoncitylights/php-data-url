@@ -32,6 +32,7 @@ class DataUrlParserTest extends TestCase {
 
 	/**
 	 * @covers ::parse
+	 * @covers \Neoncitylights\DataUrl\InvalidDataUrlSyntaxException
 	 * @dataProvider provideInvalidDataUrls
 	 */
 	public function testParseInvalidDataUrls( $invalidDataUrl ) {

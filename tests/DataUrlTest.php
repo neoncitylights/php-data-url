@@ -25,7 +25,21 @@ class DataUrlTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::__construct
+	 */
+	public function testConstructor() {
+		$this->assertInstanceOf(
+			DataUrl::class,
+			new DataUrl(
+				new MediaType( 'text', 'plain', [ 'charset' => 'UTF-8' ] ),
+				'hello world!'
+			)
+		);
+	}
+
+	/**
 	 * @covers ::getMediaType
+	 * @covers ::__construct
 	 * @dataProvider provideValidDataUrls
 	 */
 	public function testGetMediaType( $validDataUrl ) {
@@ -36,6 +50,7 @@ class DataUrlTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::__construct
 	 * @covers ::getMediaType
 	 * @dataProvider provideMediaTypeEssences
 	 */
@@ -48,6 +63,7 @@ class DataUrlTest extends TestCase {
 
 	/**
 	 * @covers ::getMediaType
+	 * @covers ::__construct
 	 * @dataProvider provideMediaTypeParameters
 	 */
 	public function testGetMediaTypeParameterValue( $expectedParameter, $expectedParameterValue, $validDataUrl ) {
@@ -59,6 +75,7 @@ class DataUrlTest extends TestCase {
 
 	/**
 	 * @covers ::getData
+	 * @covers ::__construct
 	 * @dataProvider provideData
 	 */
 	public function testGetData( $expectedData, $validDataUrl ) {
@@ -70,9 +87,16 @@ class DataUrlTest extends TestCase {
 
 	/**
 	 * @covers ::getDecodedValue
+	 * @covers ::__construct
 	 * @dataProvider provideDecodedValues
 	 */
 	public function testGetDecodedValue( $expectedDecodedValue, $validDataUrl ) {
+		$this->assertEquals(
+			$expectedDecodedValue,
+			self::$dataUrlParser->parse( $validDataUrl )->getDecodedValue()
+		);
+
+		// test cache
 		$this->assertEquals(
 			$expectedDecodedValue,
 			self::$dataUrlParser->parse( $validDataUrl )->getDecodedValue()
@@ -81,6 +105,7 @@ class DataUrlTest extends TestCase {
 
 	/**
 	 * @covers ::__toString
+	 * @covers ::__construct
 	 * @dataProvider provideStrings
 	 * @uses \Neoncitylights\DataUrl\DataUrlParser
 	 */

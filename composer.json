@@ -29,17 +29,22 @@
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "38.0.0",
 		"mediawiki/minus-x": "1.1.1",
+		"ockcyp/covers-validator": "1.4.0",
 		"php-parallel-lint/php-console-highlighter": "0.5.0",
 		"php-parallel-lint/php-parallel-lint": "1.3.1",
 		"phpunit/phpunit": "9.5.13"
 	},
 	"scripts": {
+		"lint": "parallel-lint . --exclude vendor --exclude node_modules",
+		"phpcs": "phpcs -p -s",
+		"test:phpunit-xml": "phpunit tests --coverage-xml coverage",
+		"test:phpunit-html": "phpunit tests --coverage-html coverage",
 		"test": [
-			"parallel-lint . --exclude vendor --exclude node_modules",
-			"./vendor/bin/phpunit tests",
-			"minus-x check .",
-			"phpcs -p -s",
-			"psalm"
+			"@lint",
+			"@phpcs",
+			"covers-validator",
+			"@test:phpunit-xml",
+			"minus-x check ."
 		],
 		"fix": [
 			"minus-x fix .",

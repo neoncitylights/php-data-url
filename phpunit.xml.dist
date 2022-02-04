@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
 	bootstrap="vendor/autoload.php"
+	cacheResultFile=".phpunit.cache/test-results"
 	colors="true"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
 
+	executionOrder="depends,defects"
 	backupGlobals="false"
 	beStrictAboutTestsThatDoNotTestAnything="true"
 	beStrictAboutOutputDuringTests="true"
+	convertDeprecationsToExceptions="true"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	forceCoversAnnotation="true"
 	failOnWarning="true"
 	stopOnFailure="false"
-	verbose="false">
+	verbose="true">
 	<php>
 		<ini name="memory_limit" value="512M" />
 	</php>
@@ -23,4 +26,11 @@
 			<directory suffix="Test.php">./tests</directory>
 		</testsuite>
 	</testsuites>
+	<coverage
+		cacheDirectory=".phpunit.cache/code-coverage"
+		processUncoveredFiles="true">
+		<include>
+			<directory suffix=".php">./src</directory>
+		</include>
+	</coverage>
 </phpunit>

@@ -17,9 +17,6 @@ class DataUrl implements DataUrlToken {
 	/** @var string */
 	private $data;
 
-	/** @var string */
-	private $decodedValue;
-
 	/**
 	 * @param MediaType $mediaType
 	 * @param string $data
@@ -53,12 +50,7 @@ class DataUrl implements DataUrlToken {
 	 * @return string
 	 */
 	public function getDecodedValue(): string {
-		if ( $this->decodedValue !== null ) {
-			return $this->decodedValue;
-		}
-
-		$this->decodedValue = base64_decode( $this->data );
-		return $this->decodedValue;
+		return base64_decode( $this->data );
 	}
 
 	/**
