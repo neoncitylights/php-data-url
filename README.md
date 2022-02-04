@@ -6,7 +6,7 @@
 
 A small PHP library for dealing with data URLs, which contain a media type and an encoded base64 string.
 
-This library fully conforms to RFC 2397.
+This library fully conforms to RFC 2397[^rfc-2397].
 
 ## Install
 ```
@@ -35,5 +35,4 @@ print( $dataUrl->getDecodedValue() );
 ## License
 DataUrl is licensed under the [MIT license](/LICENSE).
 
-## References
-* Masinter, L., &amp; X. (1998, August). The "data" URL scheme. Retrieved October 30, 2020, from https://tools.ietf.org/html/rfc2397
+[^rfc-2397]: Masinter, L., &amp; X. (1998, August). The "data" URL scheme. Retrieved October 30, 2020, from <https://tools.ietf.org/html/rfc2397>
