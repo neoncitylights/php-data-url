@@ -21,6 +21,10 @@ updates:
       php-parallel-lint:
         patterns:
           - "php-parallel-lint/*"
+      phpunit:
+        patterns:
+          - "ockcyp/covers-validator"
+          - "phpunit"
     open-pull-requests-limit: 4
 
   - package-ecosystem: "github-actions"
