@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9fe7bc99cc9dbff17c1b9dbbc1e9512",
+    "content-hash": "fd17c5c1449f2925e151686f3944dc44",
     "packages": [
         {
             "name": "neoncitylights/media-type",
