@@ -10,7 +10,7 @@ use function sprintf;
  * @see https://tools.ietf.org/html/rfc2397
  * @license MIT
  */
-class DataUrl implements DataUrlToken {
+class DataUrl {
 	/** @var MediaType */
 	private $mediaType;
 
@@ -61,10 +61,10 @@ class DataUrl implements DataUrlToken {
 	public function __toString(): string {
 		return sprintf(
 			'%s%s%s%s%s',
-			self::TOKEN_DATA_SCHEME,
+			Token::UriScheme->value,
 			(string)$this->mediaType,
-			self::TOKEN_BASE64_EXT,
-			self::TOKEN_COMMA,
+			Token::Base64Ext->value,
+			Token::Comma->value,
 			$this->data
 		);
 	}

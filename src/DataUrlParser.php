@@ -20,7 +20,7 @@ use function trim;
  * @see https://tools.ietf.org/html/rfc2397
  * @license MIT
  */
-class DataUrlParser implements DataUrlToken {
+class DataUrlParser {
 	/**
 	 * @param string $dataUrl
 	 * @return DataUrl
@@ -36,15 +36,15 @@ class DataUrlParser implements DataUrlToken {
 			);
 		}
 
-		if ( strpos( $trimmedDataUrl, self::TOKEN_DATA_SCHEME ) === false ) {
+		if ( strpos( $trimmedDataUrl, Token::UriScheme->value ) === false ) {
 			throw new InvalidDataUrlSyntaxException(
 				"A valid data URL requires including a \"data:\" scheme.",
 				$dataUrl
 			);
 		}
 
-		$urlPath = substr( $trimmedDataUrl, strlen( self::TOKEN_DATA_SCHEME ) );
-		$lastCommaIndex = strrpos( $urlPath, self::TOKEN_COMMA );
+		$urlPath = substr( $trimmedDataUrl, strlen( Token::UriScheme->value ) );
+		$lastCommaIndex = strrpos( $urlPath, Token::Comma->value );
 		if ( $lastCommaIndex === false ) {
 			throw new InvalidDataUrlSyntaxException(
 				"A valid data URL requires including a comma character.",
@@ -66,7 +66,7 @@ class DataUrlParser implements DataUrlToken {
 	 * @return MediaType
 	 */
 	private function parseMediaTypeAndBase64( string $content ): MediaType {
-		$base64ExtIndex = strrpos( $content, self::TOKEN_BASE64_EXT );
+		$base64ExtIndex = strrpos( $content, Token::Base64Ext->value );
 		if ( is_int( $base64ExtIndex ) ) {
 			$mediaTypeString = substr( $content, 0, $base64ExtIndex );
 			return $this->getMediaType( $mediaTypeString );
