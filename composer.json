@@ -29,7 +29,8 @@
 		}
 	},
 	"require": {
-		"neoncitylights/media-type": "^1.0"
+		"neoncitylights/media-type": "^1.0",
+		"php": ">= 8.1"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "43.0.0",
