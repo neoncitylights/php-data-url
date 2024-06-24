@@ -4,28 +4,33 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9a8c91e0969471873395bd1338b1943",
+    "content-hash": "ed28ab7ac0d9cea62b53f1cfe4402def",
     "packages": [
         {
             "name": "neoncitylights/media-type",
-            "version": "v1.0.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoncitylights/php-media-type.git",
-                "reference": "ee955fc1e9ec956e94089cabf2fb913b801f9641"
+                "reference": "94e102d5a996d4ac9f8f7cf84da5cd3b65040cda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neoncitylights/php-media-type/zipball/ee955fc1e9ec956e94089cabf2fb913b801f9641",
-                "reference": "ee955fc1e9ec956e94089cabf2fb913b801f9641",
+                "url": "https://api.github.com/repos/neoncitylights/php-media-type/zipball/94e102d5a996d4ac9f8f7cf84da5cd3b65040cda",
+                "reference": "94e102d5a996d4ac9f8f7cf84da5cd3b65040cda",
                 "shasum": ""
             },
+            "require": {
+                "ext-intl": "*",
+                "php": ">=8.2",
+                "wikimedia/assert": "^0.5.1"
+            },
             "require-dev": {
-                "mediawiki/mediawiki-codesniffer": "32.0.0",
-                "mediawiki/minus-x": "1.1.0",
-                "php-parallel-lint/php-console-highlighter": "0.5.0",
-                "php-parallel-lint/php-parallel-lint": "1.2.0",
-                "phpunit/phpunit": "^9.4"
+                "mediawiki/mediawiki-codesniffer": "43.0.0",
+                "mediawiki/minus-x": "1.1.1",
+                "php-parallel-lint/php-console-highlighter": "1.0.0",
+                "php-parallel-lint/php-parallel-lint": "1.4.0",
+                "phpunit/phpunit": "11.0.8"
             },
             "type": "library",
             "autoload": {
@@ -42,12 +47,76 @@
                     "name": "Samantha Nguyen"
                 }
             ],
-            "description": "Allows working with INAN media types as entities in PHP",
+            "description": "Allows working with IANA media types as entities in PHP",
             "support": {
                 "issues": "https://github.com/neoncitylights/php-media-type/issues",
-                "source": "https://github.com/neoncitylights/php-media-type/tree/v1.0.0"
+                "source": "https://github.com/neoncitylights/php-media-type/tree/v3.0.0"
             },
-            "time": "2020-10-28T19:03:15+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/neoncitylights",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-04-04T01:23:27+00:00"
+        },
+        {
+            "name": "wikimedia/assert",
+            "version": "v0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wikimedia/Assert.git",
+                "reference": "27c983fddac1197dc37f6a7cec00fc02861529cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wikimedia/Assert/zipball/27c983fddac1197dc37f6a7cec00fc02861529cd",
+                "reference": "27c983fddac1197dc37f6a7cec00fc02861529cd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.9"
+            },
+            "require-dev": {
+                "mediawiki/mediawiki-codesniffer": "38.0.0",
+                "mediawiki/minus-x": "1.1.1",
+                "ockcyp/covers-validator": "1.3.3",
+                "php-parallel-lint/php-console-highlighter": "0.5.0",
+                "php-parallel-lint/php-parallel-lint": "1.3.1",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wikimedia\\Assert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Kinzler"
+                },
+                {
+                    "name": "Thiemo Kreuz"
+                }
+            ],
+            "description": "Provides runtime assertions",
+            "homepage": "https://github.com/wikimedia/Assert",
+            "keywords": [
+                "assert",
+                "assertions",
+                "php",
+                "postcondition",
+                "precondition",
+                "qa"
+            ],
+            "support": {
+                "source": "https://github.com/wikimedia/Assert/tree/v0.5.1"
+            },
+            "time": "2021-12-21T11:46:59+00:00"
         }
     ],
     "packages-dev": [
