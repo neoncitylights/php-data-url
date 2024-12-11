@@ -5,6 +5,7 @@ namespace Neoncitylights\DataUrl\Tests;
 use Neoncitylights\DataUrl\DataUrl;
 use Neoncitylights\DataUrl\DataUrlParser;
 use Neoncitylights\MediaType\MediaType;
+use Neoncitylights\MediaType\MediaTypeParser;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,7 +18,9 @@ class DataUrlTest extends TestCase {
 	private static $dataUrlParser;
 
 	public static function setUpBeforeClass(): void {
-		self::$dataUrlParser = new DataUrlParser();
+		self::$dataUrlParser = new DataUrlParser(
+			new MediaTypeParser()
+		);
 	}
 
 	public static function tearDownAfterClass(): void {

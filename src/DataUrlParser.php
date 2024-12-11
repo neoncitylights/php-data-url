@@ -3,6 +3,8 @@
 namespace Neoncitylights\DataUrl;
 
 use Neoncitylights\MediaType\MediaType;
+use Neoncitylights\MediaType\MediaTypeParser;
+use Neoncitylights\MediaType\MediaTypeParserException;
 use function is_int;
 use function strlen;
 use function strrpos;
@@ -21,12 +23,32 @@ use function trim;
  * @license MIT
  */
 class DataUrlParser {
+	private MediaTypeParser $mediaTypeParser;
+
+	public function __construct( ?MediaTypeParser $mediaTypeParser ) {
+		$this->mediaTypeParser = $mediaTypeParser ?? new MediaTypeParser();
+	}
+
+	public function parseOrNull( string $dataUrl ): DataUrl|null {
+		try {
+			return $this->parseOrThrow( $dataUrl );
+		} catch ( InvalidDataUrlSyntaxException | MediaTypeParserException $e ) {
+			return null;
+		}
+	}
+
 	/**
-	 * @param string $dataUrl
-	 * @return DataUrl
-	 * @throws InvalidDataUrlSyntaxException
+	 * @throws InvalidDataUrlSyntaxException|MediaTypeParserException
+	 * @deprecated Call parseOrThrow() instead.
 	 */
 	public function parse( string $dataUrl ): DataUrl {
+		return $this->parseOrThrow( $dataUrl );
+	}
+
+	/**
+	 * @throws InvalidDataUrlSyntaxException|MediaTypeParserException
+	 */
+	public function parseOrThrow( string $dataUrl ): DataUrl {
 		$trimmedDataUrl = trim( $dataUrl );
 
 		if ( empty( $trimmedDataUrl ) ) {
@@ -62,8 +84,7 @@ class DataUrlParser {
 	}
 
 	/**
-	 * @param string $content
-	 * @return MediaType
+	 * @throws MediaTypeParserException
 	 */
 	private function parseMediaTypeAndBase64( string $content ): MediaType {
 		$base64ExtIndex = strrpos( $content, Token::Base64Ext->value );
@@ -76,14 +97,13 @@ class DataUrlParser {
 	}
 
 	/**
-	 * @param string $mediaTypeString
-	 * @return MediaType
+	 * @throws MediaTypeParserException
 	 */
 	private function getMediaType( string $mediaTypeString ): MediaType {
 		if ( empty( $mediaTypeString ) ) {
 			return new MediaType( 'text', 'plain', [ 'charset' => 'US-ASCII', ] );
 		}
 
-		return MediaType::newFromString( $mediaTypeString );
+		return $this->mediaTypeParser->parse( $mediaTypeString );
 	}
 }
