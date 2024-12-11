@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcec526db95ae5957268be93553fa2cc",
+    "content-hash": "39fed06242dc6ffd5ef7f33848e221a0",
     "packages": [
         {
             "name": "neoncitylights/media-type",
@@ -3455,7 +3455,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">= 8.1"
+        "php": ">= 8.2"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
