@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DataUrlParserTest extends TestCase {
 	/**
-	 * @covers ::parse
+	 * @covers ::parseOrThrow
 	 * @covers ::parseMediaTypeAndBase64
 	 * @covers ::getMediaType
 	 * @dataProvider provideValidTextBasedDataUrls
@@ -29,12 +29,12 @@ class DataUrlParserTest extends TestCase {
 
 		$this->assertEqualsCanonicalizing(
 			$expectedDataUrlObject,
-			$parser->parse( $validDataUrl )
+			$parser->parseOrThrow( $validDataUrl )
 		);
 	}
 
 	/**
-	 * @covers ::parse
+	 * @covers ::parseOrThrow
 	 * @covers \Neoncitylights\DataUrl\InvalidDataUrlSyntaxException
 	 * @dataProvider provideInvalidDataUrls
 	 */
@@ -44,7 +44,7 @@ class DataUrlParserTest extends TestCase {
 		$parser = new DataUrlParser(
 			new MediaTypeParser()
 		);
-		$parser->parse( $invalidDataUrl );
+		$parser->parseOrThrow( $invalidDataUrl );
 	}
 
 	public function provideValidTextBasedDataUrls() {
