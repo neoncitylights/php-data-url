@@ -9,6 +9,8 @@ A small PHP library for dealing with data URLs, which contain a media type and a
 This library fully conforms to RFC 2397[^rfc-2397].
 
 ## Install
+This requires a minimum PHP version of v8.2.
+
 ```
 composer require neoncitylights/data-url
 ```
