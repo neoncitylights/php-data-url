@@ -4,7 +4,7 @@ namespace Neoncitylights\DataUrl\Tests;
 
 use Neoncitylights\DataUrl\DataUrl;
 use Neoncitylights\DataUrl\DataUrlParser;
-use Neoncitylights\DataUrl\InvalidDataUrlSyntaxException;
+use Neoncitylights\DataUrl\DataUrlParserException;
 use Neoncitylights\MediaType\MediaType;
 use Neoncitylights\MediaType\MediaTypeParser;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass( DataUrlParser::class )]
 #[UsesClass( DataUrl::class )]
-#[UsesClass( InvalidDataUrlSyntaxException::class )]
+#[UsesClass( DataUrlParserException::class )]
 #[UsesClass( MediaType::class )]
 #[UsesClass( MediaTypeParser::class )]
 class DataUrlParserTest extends TestCase {
@@ -30,7 +30,7 @@ class DataUrlParserTest extends TestCase {
 
 	#[DataProvider( "provideInvalidDataUrls" )]
 	public function testParseInvalidDataUrls( string $invalidDataUrl ): void {
-		$this->expectException( InvalidDataUrlSyntaxException::class );
+		$this->expectException( DataUrlParserException::class );
 
 		$parser = new DataUrlParser( new MediaTypeParser() );
 		$parser->parseOrThrow( $invalidDataUrl );
