@@ -22,7 +22,7 @@
 - `mediawiki/minus-x` was bumped from v1.1.0 to v1.1.3.
 - `php-parallel-lint/php-console-highlighter` was bumped from v0.5.0 to v1.0.0.
 - `php-parallel-lint/php-parallel-lint` was bumped from v1.2.0 to v1.4.0.
-- `phpunit/phpunit` was bumped from v9.4 to v9.6.19.
+- `phpunit/phpunit` was bumped from v9.4 to v11.5.1.
 
 ## v2.0.0 (2020-11-12)
 This release included a small unit test for retrieving a media type parameter value.
