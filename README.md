@@ -20,8 +20,9 @@ composer require neoncitylights/data-url
 <?php
 
 use Neoncitylights\DataUrl\DataUrlParser;
+use Neoncitylights\MediaType\MediaTypeParser;
 
-$dataUrlParser = new DataUrlParser();
+$dataUrlParser = new DataUrlParser( new MediaTypeParser() );
 $dataUrl = $dataUrlParser->parse( 'data:text/plain;base64,VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg==' );
 
 print( $dataUrl->getMediaType()->getEssence() );
