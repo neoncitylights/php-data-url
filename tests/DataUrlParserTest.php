@@ -8,7 +8,6 @@ use Neoncitylights\DataUrl\InvalidDataUrlSyntaxException;
 use Neoncitylights\MediaType\MediaType;
 use Neoncitylights\MediaType\MediaTypeParser;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +28,6 @@ class DataUrlParserTest extends TestCase {
 		);
 	}
 
-	// #[CoversMethod( DataUrlParser::class, "parseOrThrow" )]
 	#[DataProvider( "provideInvalidDataUrls" )]
 	public function testParseInvalidDataUrls( string $invalidDataUrl ): void {
 		$this->expectException( InvalidDataUrlSyntaxException::class );

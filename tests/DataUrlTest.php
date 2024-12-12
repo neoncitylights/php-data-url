@@ -7,7 +7,6 @@ use Neoncitylights\DataUrl\DataUrlParser;
 use Neoncitylights\MediaType\MediaType;
 use Neoncitylights\MediaType\MediaTypeParser;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +30,6 @@ class DataUrlTest extends TestCase {
 		self::$dataUrlParser = null;
 	}
 
-	// #[CoversMethod( DataUrl::class, "__construct" )]
 	public function testConstructor(): void {
 		$this->assertInstanceOf(
 			DataUrl::class,
@@ -42,8 +40,6 @@ class DataUrlTest extends TestCase {
 		);
 	}
 
-	// #[CoversMethod( DataUrl::class, "getMediaType" )]
-	// #[CoversMethod( DataUrl::class, "__construct" )]
 	#[DataProvider( "provideValidDataUrls" )]
 	public function testGetMediaType( string $validDataUrl ): void {
 		$this->assertInstanceOf(
@@ -52,8 +48,6 @@ class DataUrlTest extends TestCase {
 		);
 	}
 
-	// #[CoversMethod( DataUrl::class, "getMediaType" )]
-	// #[CoversMethod( DataUrl::class, "__construct" )]
 	#[DataProvider( "provideMediaTypeEssences" )]
 	public function testGetMediaTypeEssence( string $expectedMediaTypeEssence, string $validDataUrl ): void {
 		$this->assertEquals(
@@ -62,8 +56,6 @@ class DataUrlTest extends TestCase {
 		);
 	}
 
-	// #[CoversMethod( DataUrl::class, "getMediaType" )]
-	// #[CoversMethod( DataUrl::class, "__construct" )]
 	#[DataProvider( "provideMediaTypeParameters" )]
 	public function testGetMediaTypeParameterValue( string $expectedParameter, string $expectedParameterValue, string $validDataUrl ): void {
 		$this->assertEquals(
@@ -72,8 +64,6 @@ class DataUrlTest extends TestCase {
 		);
 	}
 
-	// #[CoversMethod( DataUrl::class, "getData" )]
-	// #[CoversMethod( DataUrl::class, "__construct" )]
 	#[DataProvider( "provideData" )]
 	public function testGetData( string $expectedData, string $validDataUrl ): void {
 		$this->assertEquals(
@@ -82,8 +72,6 @@ class DataUrlTest extends TestCase {
 		);
 	}
 
-	// #[CoversMethod( DataUrl::class, "getDecodedValue" )]
-	// #[CoversMethod( DataUrl::class, "__construct" )]
 	#[DataProvider( "provideDecodedValues" )]
 	public function testGetDecodedValue( string $expectedDecodedValue, string $validDataUrl ): void {
 		$this->assertEquals(
@@ -98,8 +86,6 @@ class DataUrlTest extends TestCase {
 		);
 	}
 
-	// #[CoversMethod( DataUrl::class, "__construct" )]
-	// #[CoversMethod( DataUrl::class, "__toString" )]
 	#[DataProvider( "provideStrings" )]
 	public function testToString( string $expectedDataUrl, string $actualValidDataUrl ): void {
 		$this->assertEquals(
