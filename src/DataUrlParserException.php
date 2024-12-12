@@ -7,7 +7,7 @@ use InvalidArgumentException;
 /**
  * @license MIT
  */
-class InvalidDataUrlSyntaxException extends InvalidArgumentException {
+class DataUrlParserException extends InvalidArgumentException {
 	/**
 	 * @param string $errorMessage
 	 * @param string $invalidDataUrl

@@ -2,8 +2,12 @@
 
 ## v3.0.0 (Unreleased)
 
-### Deprecated
+### Breaking changes
 - This library's minimum PHP version was bumped from v8.1 to v8.2 (`neoncitylights/media-type` requires PHP v8.2).
+- `InvalidDataUrlSyntaxException` was renamed to `DataUrlParserException`.
+- `DataUrlParser->parse()` can now also throw `MediaTypeParserException` if the media type cannot be parsed.
+
+### Deprecated
 - Calling `DataUrlParser->parse()` is now deprecated. Instead, call `DataUrlParser->parseOrThrow()`. This method been renamed to be more explicit in side effects (throwing an exception).
 - Creating a new `DataUrlParser` instance without any arguments is now deprecated. Instead, pass in an instance of `Neoncitylights\MediaType\MediaTypeParser` as an argument, like so:
   ```php

@@ -32,7 +32,7 @@ class DataUrlParser {
 	public function parseOrNull( string $dataUrl ): DataUrl|null {
 		try {
 			return $this->parseOrThrow( $dataUrl );
-		} catch ( InvalidDataUrlSyntaxException | MediaTypeParserException $e ) {
+		} catch ( DataUrlParserException | MediaTypeParserException $e ) {
 			return null;
 		}
 	}
@@ -52,14 +52,14 @@ class DataUrlParser {
 		$trimmedDataUrl = trim( $dataUrl );
 
 		if ( empty( $trimmedDataUrl ) ) {
-			throw new InvalidDataUrlSyntaxException(
+			throw new DataUrlParserException(
 				"A valid data URL must not be an empty string.",
 				$dataUrl
 			);
 		}
 
 		if ( strpos( $trimmedDataUrl, Token::UriScheme->value ) === false ) {
-			throw new InvalidDataUrlSyntaxException(
+			throw new DataUrlParserException(
 				"A valid data URL requires including a \"data:\" scheme.",
 				$dataUrl
 			);
@@ -68,7 +68,7 @@ class DataUrlParser {
 		$urlPath = substr( $trimmedDataUrl, strlen( Token::UriScheme->value ) );
 		$lastCommaIndex = strrpos( $urlPath, Token::Comma->value );
 		if ( $lastCommaIndex === false ) {
-			throw new InvalidDataUrlSyntaxException(
+			throw new DataUrlParserException(
 				"A valid data URL requires including a comma character.",
 				$dataUrl
 			);
