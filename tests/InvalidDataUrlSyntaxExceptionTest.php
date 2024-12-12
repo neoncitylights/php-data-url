@@ -3,15 +3,14 @@
 namespace Neoncitylights\DataUrl\Tests;
 
 use Neoncitylights\DataUrl\InvalidDataUrlSyntaxException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Neoncitylights\DataUrl\InvalidDataUrlSyntaxException
- */
+#[CoversClass( InvalidDataUrlSyntaxException::class )]
 class InvalidDataUrlSyntaxExceptionTest extends TestCase {
-	/**
-	 * @covers ::__construct
-	 */
+
+	// #[CoversMethod( InvalidDataUrlSyntaxException::class, "__construct" )]
 	public function testConstructor(): void {
 		$this->expectException( InvalidDataUrlSyntaxException::class );
 		throw new InvalidDataUrlSyntaxException(

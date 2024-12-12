@@ -15,9 +15,14 @@ phpunit.xml
 .phpunit.cache
 .phpunit.result.cache
 
+
 # phpDocumentor
 .phpdoc
 phpdoc.xml
 
 # code coverage
 coverage
+coverage.*
+
+# PHPActor LSP
+.phpactor.json
