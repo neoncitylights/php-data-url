@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.0.0 (Unreleased)
+## v3.0.0 (2024-12-12)
 
 ### Breaking changes
 - This library's minimum PHP version was bumped from v8.1 to v8.2 (`neoncitylights/media-type` requires PHP v8.2).
