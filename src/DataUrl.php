@@ -11,16 +11,9 @@ use function sprintf;
  * @license MIT
  */
 class DataUrl {
-	/** @var MediaType */
-	private $mediaType;
+	private MediaType $mediaType;
+	private string $data;
 
-	/** @var string */
-	private $data;
-
-	/**
-	 * @param MediaType $mediaType
-	 * @param string $data
-	 */
 	public function __construct( MediaType $mediaType, string $data ) {
 		$this->mediaType = $mediaType;
 		$this->data = $data;
@@ -28,8 +21,6 @@ class DataUrl {
 
 	/**
 	 * Gets the media type of the encoded base64 string.
-	 *
-	 * @return MediaType
 	 */
 	public function getMediaType(): MediaType {
 		return $this->mediaType;
@@ -37,8 +28,6 @@ class DataUrl {
 
 	/**
 	 * Gets the original, encoded base64 string.
-	 *
-	 * @return string
 	 */
 	public function getData(): string {
 		return $this->data;
@@ -46,8 +35,6 @@ class DataUrl {
 
 	/**
 	 * Gets a decoded value of the base64 string.
-	 *
-	 * @return string
 	 */
 	public function getDecodedValue(): string {
 		return base64_decode( $this->data );
@@ -55,8 +42,6 @@ class DataUrl {
 
 	/**
 	 * Returns a data URL compliant with RFC 2397.
-	 *
-	 * @return string
 	 */
 	public function __toString(): string {
 		return sprintf(

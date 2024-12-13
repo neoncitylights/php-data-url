@@ -16,10 +16,8 @@ use function trim;
  * which defines the data URL scheme.
  *  - If no media type is provided, the default media type is assumed to be
  *    `text/plain;charset=US-ASCII`
- *  - If a user passes an invalid data URL, the parser will throw an
- *    `InvalidDataUrlSyntaxException`
  *
- * @see https://tools.ietf.org/html/rfc2397
+ * @see [IETF RFC 2397](https://datatracker.ietf.org/doc/html/rfc2397)
  * @license MIT
  */
 class DataUrlParser {
@@ -40,6 +38,7 @@ class DataUrlParser {
 	/**
 	 * @throws InvalidDataUrlSyntaxException|MediaTypeParserException
 	 * @deprecated Call parseOrThrow() instead.
+	 * @codeCoverageIgnore
 	 */
 	public function parse( string $dataUrl ): DataUrl {
 		return $this->parseOrThrow( $dataUrl );

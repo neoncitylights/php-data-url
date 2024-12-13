@@ -19,8 +19,14 @@ use PHPUnit\Framework\TestCase;
 #[UsesClass( MediaTypeParser::class )]
 class DataUrlParserTest extends TestCase {
 
+	#[DataProvider( "provideInvalidDataUrls" )]
+	public function testParseOrNull( string $invalidDataUrl ): void {
+		$parser = new DataUrlParser( new MediaTypeParser() );
+		$this->assertNull($parser->parseOrNull($invalidDataUrl));
+	}
+
 	#[DataProvider( "provideValidTextBasedDataUrls" )]
-	public function testParseValidDataUrls( DataUrl $expectedDataUrlObject, string $validDataUrl ): void {
+	public function testParseOrThrowValidDataUrls( DataUrl $expectedDataUrlObject, string $validDataUrl ): void {
 		$parser = new DataUrlParser( new MediaTypeParser() );
 		$this->assertEqualsCanonicalizing(
 			$expectedDataUrlObject,
@@ -29,7 +35,7 @@ class DataUrlParserTest extends TestCase {
 	}
 
 	#[DataProvider( "provideInvalidDataUrls" )]
-	public function testParseInvalidDataUrls( string $invalidDataUrl ): void {
+	public function testParseOrThrowInvalidDataUrls( string $invalidDataUrl ): void {
 		$this->expectException( DataUrlParserException::class );
 
 		$parser = new DataUrlParser( new MediaTypeParser() );

@@ -39,3 +39,9 @@ jobs:
       run: composer install --prefer-dist --no-progress
     - name: Run test suite
       run: composer test
+    - name: Upload code coverage
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
+        files: coverage.xml

@@ -5,7 +5,7 @@
 ### Breaking changes
 - This library's minimum PHP version was bumped from v8.1 to v8.2 (`neoncitylights/media-type` requires PHP v8.2).
 - `InvalidDataUrlSyntaxException` was renamed to `DataUrlParserException`.
-- `DataUrlParser->parse()` can now also throw `MediaTypeParserException` if the media type cannot be parsed.
+- `DataUrlParser->parse()`/`parseOrThrow()` can now also throw `MediaTypeParserException` if the media type cannot be parsed.
 
 ### Deprecated
 - Calling `DataUrlParser->parse()` is now deprecated. Instead, call `DataUrlParser->parseOrThrow()`. This method been renamed to be more explicit in side effects (throwing an exception).
@@ -21,6 +21,7 @@
 - `DataUrlParser` has a new instance method, `parseOrNull()`, which either returns `DataUrl` or `null`. This method is an alternative to `parseOrThrow()`.
 
 ### Internal changes
+- The private properties of `MediaType` are now strongly type-hinted. Note that these were already technically typehinted since they were private, and the constructor signature was already typehinted.
 - The library's CI now also runs builds against PHP v8.3 and PHP v8.4 (not just PHP v8.2).
 - `mediawiki/mediawiki-sniffer` was bumped from v33.0.0 to v45.0.0.
 - `mediawiki/minus-x` was bumped from v1.1.0 to v1.1.3.

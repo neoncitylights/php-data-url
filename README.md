@@ -1,8 +1,17 @@
 # DataUrl
-![Packagist Version](https://img.shields.io/packagist/v/neoncitylights/data-url)
-![GitHub](https://img.shields.io/github/license/neoncitylights/php-data-url)
-[![PHP Composer](https://github.com/neoncitylights/php-data-url/actions/workflows/php.yml/badge.svg)](https://github.com/neoncitylights/php-data-url/actions/workflows/php.yml)
-[![codecov](https://codecov.io/gh/neoncitylights/php-data-url/branch/main/graph/badge.svg?token=IdWjeqFQcS)](https://codecov.io/gh/neoncitylights/php-data-url)
+[![Packagist][packagist-badge]][packagist-url]
+[![License][license-badge]][license-url]
+[![CI][ci-badge]][ci-url]
+[![Codecov][codecov-badge]][codecov-url]
+
+[packagist-badge]: https://img.shields.io/packagist/v/neoncitylights/data-url?style=flat-square
+[packagist-url]: https://packagist.org/packages/neoncitylights/data-url
+[license-badge]: https://img.shields.io/badge/License-MIT-blue?style=flat-square
+[license-url]: #license
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/neoncitylights/php-data-url/.github/workflows/php.yml?style=flat-square
+[ci-url]: https://github.com/neoncitylights/php-data-url/actions/workflows/php.yml
+[codecov-badge]: https://img.shields.io/codecov/c/github/neoncitylights/php-data-url?style=flat-square
+[codecov-url]: https://app.codecov.io/gh/neoncitylights/php-data-url
 
 A small PHP library for dealing with data URLs, which contain a media type and an encoded base64 string.
 

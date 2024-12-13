@@ -8,10 +8,6 @@ use InvalidArgumentException;
  * @license MIT
  */
 class DataUrlParserException extends InvalidArgumentException {
-	/**
-	 * @param string $errorMessage
-	 * @param string $invalidDataUrl
-	 */
 	public function __construct( string $errorMessage, string $invalidDataUrl ) {
 		parent::__construct(
 			"{$errorMessage} " .
