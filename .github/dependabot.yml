@@ -29,5 +29,5 @@ updates:
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "deps(actions):"
+      prefix: "deps(gha):"
     open-pull-requests-limit: 4

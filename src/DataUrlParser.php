@@ -103,6 +103,6 @@ class DataUrlParser {
 			return new MediaType( 'text', 'plain', [ 'charset' => 'US-ASCII', ] );
 		}
 
-		return $this->mediaTypeParser->parse( $mediaTypeString );
+		return $this->mediaTypeParser->parseOrThrow( $mediaTypeString );
 	}
 }
