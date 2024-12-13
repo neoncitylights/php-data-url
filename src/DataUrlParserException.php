@@ -7,11 +7,7 @@ use InvalidArgumentException;
 /**
  * @license MIT
  */
-class InvalidDataUrlSyntaxException extends InvalidArgumentException {
-	/**
-	 * @param string $errorMessage
-	 * @param string $invalidDataUrl
-	 */
+class DataUrlParserException extends InvalidArgumentException {
 	public function __construct( string $errorMessage, string $invalidDataUrl ) {
 		parent::__construct(
 			"{$errorMessage} " .

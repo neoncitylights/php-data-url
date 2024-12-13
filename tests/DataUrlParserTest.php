@@ -4,82 +4,92 @@ namespace Neoncitylights\DataUrl\Tests;
 
 use Neoncitylights\DataUrl\DataUrl;
 use Neoncitylights\DataUrl\DataUrlParser;
-use Neoncitylights\DataUrl\InvalidDataUrlSyntaxException;
+use Neoncitylights\DataUrl\DataUrlParserException;
 use Neoncitylights\MediaType\MediaType;
+use Neoncitylights\MediaType\MediaTypeParser;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Neoncitylights\DataUrl\DataUrlParser
- * @uses \Neoncitylights\DataUrl\DataUrl
- * @uses \Neoncitylights\DataUrl\InvalidDataUrlSyntaxException
- * @uses \Neoncitylights\MediaType\MediaType
- */
+#[CoversClass( DataUrlParser::class )]
+#[UsesClass( DataUrl::class )]
+#[UsesClass( DataUrlParserException::class )]
+#[UsesClass( MediaType::class )]
+#[UsesClass( MediaTypeParser::class )]
 class DataUrlParserTest extends TestCase {
-	/**
-	 * @covers ::parse
-	 * @covers ::parseMediaTypeAndBase64
-	 * @covers ::getMediaType
-	 * @dataProvider provideValidTextBasedDataUrls
-	 */
-	public function testParseValidDataUrls( $expectedDataUrlObject, $validDataUrl ) {
-		$parser = new DataUrlParser();
 
+	#[DataProvider( "provideInvalidDataUrls" )]
+	public function testParseOrNull( string $invalidDataUrl ): void {
+		$parser = new DataUrlParser( new MediaTypeParser() );
+		$this->assertNull($parser->parseOrNull($invalidDataUrl));
+	}
+
+	#[DataProvider( "provideValidTextBasedDataUrls" )]
+	public function testParseOrThrowValidDataUrls( DataUrl $expectedDataUrlObject, string $validDataUrl ): void {
+		$parser = new DataUrlParser( new MediaTypeParser() );
 		$this->assertEqualsCanonicalizing(
 			$expectedDataUrlObject,
-			$parser->parse( $validDataUrl )
+			$parser->parseOrThrow( $validDataUrl )
 		);
 	}
 
+	#[DataProvider( "provideInvalidDataUrls" )]
+	public function testParseOrThrowInvalidDataUrls( string $invalidDataUrl ): void {
+		$this->expectException( DataUrlParserException::class );
+
+		$parser = new DataUrlParser( new MediaTypeParser() );
+		$parser->parseOrThrow( $invalidDataUrl );
+	}
+
 	/**
-	 * @covers ::parse
-	 * @covers \Neoncitylights\DataUrl\InvalidDataUrlSyntaxException
-	 * @dataProvider provideInvalidDataUrls
+	 * @return array<string>
 	 */
-	public function testParseInvalidDataUrls( $invalidDataUrl ) {
-		$this->expectException( InvalidDataUrlSyntaxException::class );
-
-		$parser = new DataUrlParser();
-		$parser->parse( $invalidDataUrl );
-	}
-
-	public function provideValidTextBasedDataUrls() {
-		yield [
-			new DataUrl(
-				new MediaType( 'text', 'plain', [ 'charset' => 'US-ASCII' ] ),
-				''
-			),
-			'data:,',
-		];
-		yield [
-			new DataUrl(
-				new MediaType( 'text', 'plain', [ 'charset' => 'US-ASCII' ] ),
-				''
-			),
-			" \n\r\t\0\x0Bdata:, \n\r\t\0\x0B",
-		];
-		yield [
-			new DataUrl(
-				new MediaType( 'text', 'plain', [] ),
-				'SGVsbG8sIFdvcmxkIQ=='
-			),
-			"data:text/plain;base64,SGVsbG8sIFdvcmxkIQ==",
-		];
-		yield [
-			new DataUrl(
-				new MediaType(
-					'text', 'plain',
-					[ 'charset' => 'UTF-8' ]
+	public static function provideValidTextBasedDataUrls(): array {
+		return [
+			[
+				new DataUrl(
+					new MediaType( 'text', 'plain', [ 'charset' => 'US-ASCII' ] ),
+					''
 				),
-				'VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg=='
-			),
-			'data:text/plain;charset=UTF-8;base64,VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg=='
+				'data:,',
+			],
+			[
+				new DataUrl(
+					new MediaType( 'text', 'plain', [ 'charset' => 'US-ASCII' ] ),
+					''
+				),
+				" \n\r\t\0\x0Bdata:, \n\r\t\0\x0B",
+			],
+			[
+				new DataUrl(
+					new MediaType( 'text', 'plain', [] ),
+					'SGVsbG8sIFdvcmxkIQ=='
+				),
+				"data:text/plain;base64,SGVsbG8sIFdvcmxkIQ==",
+			],
+			[
+				new DataUrl(
+					new MediaType(
+						'text', 'plain',
+						[ 'charset' => 'UTF-8' ]
+					),
+					'VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg=='
+				),
+				'data:text/plain;charset=UTF-8;base64,VGhlIGZpdmUgYm94aW5nIHdpemFyZHMganVtcCBxdWlja2x5Lg=='
+			]
 		];
 	}
 
-	public function provideInvalidDataUrls() {
-		yield [ '' ];
-		yield [ ' \n\r\t\0\x0B' ];
-		yield [ 'foo' ];
-		yield [ 'data:test' ];
+	/**
+	 * @return array{string}
+	 */
+	public static function provideInvalidDataUrls(): array {
+		return [
+			[ '' ],
+			[ ' \n\r\t\0\x0B' ],
+			[ 'foo' ],
+			[ 'data:test' ],
+		];
 	}
 }
